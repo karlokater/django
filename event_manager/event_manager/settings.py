@@ -55,8 +55,11 @@ ROOT_URLCONF = 'event_manager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [
+            BASE_DIR / "event_manager" / "templates", 
+            # BASE_DIR / "event_manager" / "templates2", 
+        ],  # weitere Orte mit Templates
+        'APP_DIRS': True,  # guck in den Apps nach Templates
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

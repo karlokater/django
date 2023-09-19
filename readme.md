@@ -43,3 +43,7 @@ Ein Testprojekt im Rahmen des GFU Django Kurses.
         "company",
         ...
     ]
+
+## Legacy Datenbank einbinden
+
+https://docs.djangoproject.com/en/4.2/howto/legacy-databases/
