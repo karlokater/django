@@ -6,6 +6,7 @@
 
 
 {% block content %}
+<a href="{% url 'events:category_add' %}">Kategorie hinzufügen</a><br>
 <ul>
     {% for category in categories %}
     <li><a href="{% url 'events:category_detail' category.pk %}">{{category}}</a></li>

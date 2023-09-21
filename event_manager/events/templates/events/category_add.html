@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+<h1>neue Kategorie eintragen</h1>
+{% endblock %}
+
+{% block content %}
+<div class="col-12">
+
+    <form method="POST">
+    {% csrf_token %}
+    {{form|crispy}}
+    <div>
+        <button class="btn btn-primary">Absenden</button>
+    </div>
+    </form>
+
+</div>
+{% endblock %}

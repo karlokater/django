@@ -6,8 +6,17 @@
 #
 asgiref==3.7.2
     # via django
-django==4.2.5
+crispy-bootstrap5==0.7
     # via -r .\requirements.in
+django==4.2.5
+    # via
+    #   -r .\requirements.in
+    #   crispy-bootstrap5
+    #   django-crispy-forms
+django-crispy-forms==2.0
+    # via
+    #   -r .\requirements.in
+    #   crispy-bootstrap5
 sqlparse==0.4.4
     # via django
 tzdata==2023.3

@@ -2,6 +2,8 @@
 
 Ein Testprojekt im Rahmen des GFU Django Kurses.
 
+https://djangoheroes.spielprinzip.com
+
 
 ## Aufgabe Nachmittag
 

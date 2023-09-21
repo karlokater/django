@@ -1,8 +1,17 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
-User = get_user_model() # immer das aktuell ausgewählte User-Model
+User = get_user_model()  # immer das aktuell ausgewählte User-Model
+
+
+def datetime_in_past(field_value) -> None:
+    if field_value <= timezone.now():
+        raise ValidationError(message="Der Event muss in der Zukunft liegen!")
+
 
 
 class DateMixin(models.Model):
@@ -50,11 +59,13 @@ class Event(DateMixin):
         verbose_name = "Event"
         verbose_name_plural = "Events"
 
-    name = models.CharField(max_length=100)  # Varchar 100
+    name = models.CharField(max_length=100, validators=[
+        MinLengthValidator(3)
+    ])  # Varchar 100
     description = models.TextField(null=True, blank=True)
     sub_title = models.CharField(max_length=200, null=True, blank=True)
     min_group = models.IntegerField(choices=Group.choices)  # mandatory, Dropdown im Formular
-    date = models.DateTimeField()
+    date = models.DateTimeField(validators=[datetime_in_past])
     author = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
@@ -67,6 +78,15 @@ class Event(DateMixin):
         related_name="events"
     )
     is_active = models.BooleanField(default=True)
+
+    def related_events(self):
+        """Eine Liste von ähnlichen Events."""
+        qs = Event.objects.filter(
+            min_group=self.min_group,
+            category=self.category
+        )
+        return qs.exclude(pk=self.pk)
+
 
     def __str__(self) -> str:
         return self.name

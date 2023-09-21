@@ -1,0 +1,7 @@
+<h1>Übersicht der Todos</h1>
+
+<ul>
+{% for todo in todos %}
+<li><a href="{% url 'todo:todo_detail' todo.pk %}">{{todo}}</a></li>
+{% endfor %}
+</ul>

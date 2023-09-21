@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="display-6 fw-bold lh-1">{{object.name}}</h1>
+<h3 class="display-6 lh-3">{{object.sub_title}}</h3>
+
+<p>
+am <b>{{object.date}} Uhr</b>, eingestellt von  {{object.author}}
+in <a href="{% url 'events:category_detail' object.category.pk %}">
+{{object.category}}</a>
+</p>
+<a href="{% url 'events:event_update' object.pk %}">Event editieren</a>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="col-lg-8 col-sm-12">
+
+<h3>Beschreibung</h3>
+<p>{{object.description}}</p>
+
+<section class="mb-5 mt-5">
+<h3>zusätzliche Infos</h3>
+<ul>
+  <li>eingestellt am: {{object.created_at}}</li>
+  <li>eingestellt von: {{object.author}}</li>
+  <li><b>findet statt am (deutsche Zeit): {{object.date}}</b></li>
+  <li>Min Gruppengröße: {{object.get_min_group_display}}</li>
+  <li>Min Gruppengröße: {{object.min_group}}</li>
+</ul>
+</section>
+
+<section class="mb-5 mt-5">
+<h3>Ähnliche Events</h3>
+<ul>
+{% for event in object.related_events %}
+  <li>{{event}}</li>
+{% endfor %}
+</ul>
+</section>
+
+
+</div>
+</div>
+
+<script>
+
+window.addEventListener("load", (event) => {
+    console.log("page is fully loaded");
+    url = "/events/getdata"
+    var jsondata = fetch(url).then(
+    function(u){ return u.json();}
+  ).then(
+    function(json){
+      console.log(json);
+    }
+  )
+  //console.log(jsondata);
+});
+
+</script>
+
+{%endblock%}
