@@ -4,9 +4,16 @@
 Event Übersicht
 {% endblock %}
 
-{% block head%}
+{% block header %}
 <h1 class="display-6 fw-bold lh-1">Event Übersicht</h1>
 <p>Tolle Events in deiner Nähe</p>
+
+{% if searched %}
+<p>Ihr Suchwort: {{searched}}</p>
+{% endif %}
+
+<p><a href="{% url 'events:event_create' %}">Neuen Event hinzufügen</a></p>
+
 {% endblock %}
 
 {% block content %}

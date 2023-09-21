@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<main class="form-signin">
+  <form method="post">
+    <img class="mb-4" src="{% static 'penglogo.png' %}" alt="" >
+    <h1 class="h3 mb-3 fw-normal">Bitte einloggen</h1>
+
+      {% csrf_token %}
+      {{ form|crispy }}
+
+    <div class="checkbox mb-3">
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2019–2023</p>
+  </form>
+</main>
+{% endblock %}

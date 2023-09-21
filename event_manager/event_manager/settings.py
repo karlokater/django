@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     'events',
     'todo',
+    "pages",
 ]
 
 MIDDLEWARE = [
@@ -62,9 +63,8 @@ if DEBUG:
     MIDDLEWARE.extend(
         ["debug_toolbar.middleware.DebugToolbarMiddleware",]
     )
-    
-    INTERNAL_IPS = ("127.0.0.1",)
 
+    INTERNAL_IPS = ("127.0.0.1",)
 
 
 ROOT_URLCONF = 'event_manager.urls'
@@ -77,8 +77,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / "event_manager" / "templates", 
-            # BASE_DIR / "event_manager" / "templates2", 
+            BASE_DIR / "event_manager" / "templates",
+            # BASE_DIR / "event_manager" / "templates2",
         ],  # weitere Orte mit Templates
         'APP_DIRS': True,  # guck in den Apps nach Templates
         'OPTIONS': {
@@ -123,6 +123,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGIN_REDIRECT_URL = '/'  # Hierhin wird weitergeleitet nach dem Login
+LOGOUT_REDIRECT_URL = '/'  # Weiterleiten nach Logout
 
 
 # Internationalization

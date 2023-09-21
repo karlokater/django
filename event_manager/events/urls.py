@@ -29,4 +29,5 @@ urlpatterns = [
 
     # events/getdata
     path("getdata", views.get_data, name="get_data"),
+    path("search", views.EventSearchView.as_view(), name="search"),
 ]

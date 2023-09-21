@@ -35,7 +35,7 @@
                   text-white">Kategorien</a></li>
         </ul>
 
-        <form action="" method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <form action="{% url 'events:search' %}" method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input name="q" required="required" type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
         </form>
 
@@ -48,6 +48,7 @@
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><span>Hello {{user}}</span></li>
             <li><a class="dropdown-item" href="#">Event anlegen</a></li>
 
             {% comment %} 
@@ -57,38 +58,20 @@
             <li><a class="dropdown-item" href="">Passwort ändern</a></li>
             <li><hr class="dropdown-divider"></li>
 
-            {% comment %} 
-            <!-- LOGOUT: Freischalten, wenn der Login und Signup implementiert wird -->
             <li>
               <a class="dropdown-item" href="{% url 'logout' %}">Sign out</a>
             </li>
-            {% endcomment %}
-            <li>
-              <a class="dropdown-item" href="">Sign out</a>
-            </li>
+            
 
           </ul>
         </div>
 
           {% else %}
 
-          {% comment %} 
-          <!-- das Freischalten, wenn der Login und Signup implementiert wird -->
           <a href="{% url 'login' %}">
           <button type="button" class="btn btn-outline-light me-2">Login</button>
           </a>
-          {% endcomment %}
-          <a href="">
-          <button type="button" class="btn btn-outline-light me-2">Login</button>
-          </a>
-
-          {% comment %} 
-          <!-- das Freischalten, wenn der Login und Signup implementiert wird -->
-          <a href="{% url 'user:signup' %}">
-          {% endcomment %}
-          <a href="">
-          <button type="button" class="btn btn-warning">Sign-up</button>
-          </a>
+    
 
          {% endif %}
         </div>
