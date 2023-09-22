@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>Event löschen: {{object}}</h1>
+{% endblock %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        <p>Willst du das Event sicher löschen? "{{ object }}"?</p>
+        <input type="submit" class="btn btn-primary" value="Ja, weg damit!">
+    </form>
+
+{% endblock %}

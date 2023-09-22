@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block header %}
-<h1>{{category}}</h1>
+<h1>{{category|upper}}</h1>
 <a href="{% url 'events:categories' %}">zurück zur Übersicht</a>
 {% endblock %}
 
 {% block content %}
-<p>{{category.sub_title}}</p>
-<p>{{category.description}}</p>
+<p>{{category.sub_title|default:'nicht vorhanden'}}</p>
+<p>{{category.description|upper|linebreaks}}</p>
 {% endblock %}

@@ -47,5 +47,23 @@ https://djangoheroes.spielprinzip.com
     ]
 
 ## Legacy Datenbank einbinden
+- https://docs.djangoproject.com/en/4.2/howto/legacy-databases/
 
-https://docs.djangoproject.com/en/4.2/howto/legacy-databases/
+## PDF Erzeugung
+- https://docs.djangoproject.com/en/4.2/howto/outputting-pdf/
+
+## Statische Dateien mit whitenoise über WSGI ausliefern
+Whitenoise installieren und dann werden statische Dateien im LIVE-Modus auch
+über die WSGI-Schnittstelle ausgeliefert. Nur für kleine bis mittelgroße Projekte.
+https://djangoheroes.spielprinzip.com/profiwissen/whitenoise.html
+
+## Docker mit Django und Nginx und Gunicorn
+https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
+
+## Django Tutorial
+https://docs.djangoproject.com/en/4.2/intro/tutorial01/
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Tutorial_local_library_website
+https://tutorial.djangogirls.org/de/
+
+## Django App Free Hosting
+https://www.pythonanywhere.com/

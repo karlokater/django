@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import environ
+from django.contrib.messages import constants as messages
 
 env = environ.Env(
     # set casting, default value
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "whitenoise.runserver_nostatic",  # whitenoise im Debug modus nutzen
     'django.contrib.staticfiles',
     "crispy_forms",
     "crispy_bootstrap5",
@@ -52,10 +54,23 @@ INSTALLED_APPS = [
     'todo',
     "pages",
     "django_extensions",
+    "rest_framework",
+    "rest_framework.authtoken",  # Tabelle für die Authentifizierungs-Token
+    "drf_spectacular",
+    'drf_spectacular_sidecar',
 ]
+
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",  # bootstrap css alert-success
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -162,7 +177,39 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
+# mit python manage.py collectstatic alle statischen Dateien hier sammeln
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_FILTER_BACKENDS': [
+    #     'django_filters.rest_framework.DjangoFilterBackend'
+    # ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PARSER_CLASSES": (
+        "rest_framework.parsers.JSONParser",
+        "rest_framework.parsers.FormParser",
+        "rest_framework.parsers.MultiPartParser",
+    ),
+
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Event Manager API',
+    'DESCRIPTION': 'Django Event manager',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+}

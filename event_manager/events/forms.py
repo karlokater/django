@@ -13,6 +13,8 @@ class EventForm(forms.ModelForm):
             "date": forms.DateInput(
                 format=("%Y-%m-%d %H:%M"), attrs={"type": "datetime-local"}
             ),
+            "tags": forms.CheckboxSelectMultiple()
+
         }
 
 
