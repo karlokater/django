@@ -11,21 +11,30 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    # default ist der Wert auf False (keine Errors preisgeben)
+    DEBUG=(bool, False)
+)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(BASE_DIR / ".env")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^5djf3kp=%14l*1(dlp@u&l)$^6a@$2vv)&g9o$b^@%z!4nun%'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ["example.com", "127.0.0.1", "localhost", "*"]
+# SECRET_KEY = 'django-insecure-^5djf3kp=%14l*1(dlp@u&l)$^6a@$2vv)&g9o$b^@%z!4nun%'
+# ALLOWED_HOSTS = ["example.com", "127.0.0.1", "localhost", "*"]
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env('DEBUG')
+# env.list macht aus einer kommaseparierten Liste eine Liste
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -42,6 +51,7 @@ INSTALLED_APPS = [
     'events',
     'todo',
     "pages",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -102,7 +112,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    # 'secure': {
+    #     'ENGINE': 'django.db.backends.sqlite32',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 

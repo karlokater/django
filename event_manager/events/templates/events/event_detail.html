@@ -44,21 +44,50 @@ in <a href="{% url 'events:category_detail' object.category.pk %}">
 </div>
 </div>
 
+<canvas id="polar-chart" width="800" height="450"></canvas>
+
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js">
+</script>
+
 <script>
+/*
+Beispiel, wie man ein JS Chart mit einem Ajax-Aufruf mit Daten 
+von Django füllen kann. Fetch holt dazu die Daten von dem Endpunkt
+und wandelt sie per json in einen Json-Stream um, der dann an Chart
+übergeben wird.
+*/
+
 
 window.addEventListener("load", (event) => {
-    console.log("page is fully loaded");
-    url = "/events/getdata"
-    var jsondata = fetch(url).then(
-    function(u){ return u.json();}
-  ).then(
-    function(json){
-      console.log(json);
-    }
-  )
-  //console.log(jsondata);
-});
+  console.log("page is fully loaded");
+  fetch('/events/getdata')
+    .then(response => response.json())
+    .then(data => {
 
+        new Chart(document.getElementById("polar-chart"), {
+            type: 'polarArea',
+            data: {
+              labels: ["Africa", "Asia", "Europe", "Latin America",
+"North America"],
+              datasets: [
+                {
+                  label: "Population (millions)",
+                  backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                  data: data
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Predicted world population (millions) in 2050'
+              }
+            }
+        });
+    })
+    .catch(error => console.error('Error:', error));
+});
 </script>
 
 {%endblock%}

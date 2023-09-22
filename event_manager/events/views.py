@@ -1,3 +1,4 @@
+from django.db import transaction, DatabaseError
 from typing import Any
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -100,7 +101,7 @@ def get_data(request: HttpRequest) -> HttpResponse:
 
     Die kann dann auch per JS fetch aufgerufen werden.
     """
-    data = get_database(x=3, y=8)
+    data = [12, 133, 34, 23, 14]
 
     return JsonResponse(data, safe=False)
 
@@ -166,6 +167,15 @@ def category_detail(request: HttpRequest, pk: int):
             "category": category
         }
     )
+
+
+@transaction.atomic
+def test_db(request):
+    try:
+        result = Event.objects.all()
+    except DatabaseError as e:
+        print(e)
+        return redirect("/")
 
 
 def test(request: HttpRequest):
